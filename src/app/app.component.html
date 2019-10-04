@@ -1,0 +1,99 @@
+
+<div class="d-flex justify-content-center">
+  <button 
+    mat-fab
+    matTooltip="Home page"
+    aria-label="Home icon"
+    class="m-3"
+  >
+    <mat-icon>home</mat-icon>
+  </button>
+  <button 
+    mat-fab
+    matTooltip="Add something"
+    color="secondary"
+    aria-label="Add icon"
+    class="m-3"
+    (click)="openAddDialog()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+
+</div>
+<div class="conatiner mt-3 mb-3">
+  <div class="d-flex justify-content-center" *ngIf='isLoading' >
+    <span>Loading data .....</span>
+  </div>
+  <div class="d-flex justify-content-center" *ngIf='isError' >
+    <span>ups, cannot get data from service !</span>
+  </div>
+
+  <!-- table -->
+  <div class="container" >
+    <div>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    
+    <div>
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Sort by ID"> ID </th>
+            <td mat-cell *matCellDef="let row" class='p-1'> {{row.id}} </td>
+          </ng-container>
+      
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Sort by Title"> Title </th>
+            <td mat-cell *matCellDef="let row" class='p-1'> {{row.title}} </td>
+          </ng-container>
+      
+          <!-- Body Column -->
+          <ng-container matColumnDef="body">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Sort by Body"> Body </th>
+            <td mat-cell *matCellDef="let row" class='p-1'> {{row.body}} </td>
+          </ng-container>
+      
+          <!-- userId Column -->
+          <ng-container matColumnDef="userId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltip="Sort by userId"> userId </th>
+            <td mat-cell *matCellDef="let row" class='p-1'> {{row.userId}} </td>
+          </ng-container>
+
+          <!-- Setting Column -->
+          <ng-container matColumnDef="setting">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let row"> 
+              <button 
+                class="m-1"
+                mat-flat-button
+                color="accent"
+                matTooltip="update"
+                (click)="openUpdateDialog(row)"
+              >
+                <mat-icon>create</mat-icon>
+              </button>
+              <button 
+                class="m-1"
+                mat-flat-button 
+                color="warn"
+                matTooltip="delete"
+                (click)="openDeleteDialog(row)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>

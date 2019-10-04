@@ -1,0 +1,84 @@
+<div>
+    <div class="text-center">
+        <h5>Update data : )</h5>
+    </div>
+    <div>
+        <form 
+            [formGroup]='dataPost'
+            (ngSubmit)=onSubmit(dataPost.value)
+            class="p-5"
+        >
+            <div class="be-column">
+                <mat-form-field>
+                    <input 
+                        matInput 
+                        placeholder="Title"
+                        formControlName='title'
+                    >
+                    <mat-error *ngIf="dataPost.get('title').errors && dataPost.get('title').errors.required">
+                       is required !
+                    </mat-error>
+                    <mat-error *ngIf="dataPost.get('title').errors && dataPost.get('title').errors.minlength">
+                        minimal length 5 !
+                    </mat-error>
+                    <mat-error *ngIf="dataPost.get('title').errors && dataPost.get('title').errors.maxlength">
+                         maximal length 50 !
+                    </mat-error>
+                    
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea 
+                        matInput
+                        rows="10"
+                        placeholder="Give some text"
+                        formControlName='body'
+                    ></textarea>
+                    <mat-error *ngIf="dataPost.get('body').errors && dataPost.get('body').errors.required">
+                        is required !
+                    </mat-error>
+                    <mat-error *ngIf="dataPost.get('body').errors && dataPost.get('body').errors.minlength">
+                        minimal length 5 !
+                    </mat-error>
+                    <mat-error *ngIf="dataPost.get('body').errors && dataPost.get('body').errors.maxlength">
+                        maximal length 50 !
+                    </mat-error>
+
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select 
+                        placeholder="Chose id user"
+                        formControlName='userId'
+                    >
+                        <mat-option 
+                            *ngFor="let id of userId" 
+                            [value]="id.id"
+                        >
+                            {{id.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="dataPost.get('userId').errors && dataPost.get('userId').errors.required">
+                        is required !
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button 
+                    mat-raised-button
+                    color="secondary"
+                    class="mr-2"
+                    type="button"
+                    (click)="closeDialog()"
+                >Close</button>
+                <button 
+                    mat-raised-button
+                    color="accent"
+                    class="mr-5"
+                    type="submit"
+                    [disabled]="dataPost.invalid"
+                >Update it</button>
+            </div>
+            
+        </form>
+    </div>
+</div>

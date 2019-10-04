@@ -1,0 +1,21 @@
+
+<div>
+    <div class="text-center">
+        <span>Are sure to delete this post ?</span>
+    </div>
+    <div class="m-3">
+        <div class="d-flex justify-content-between">
+            <button 
+                mat-raised-button
+                color="secondary"
+                (click)="closeDialog()"
+            >No</button>
+            <button 
+                mat-raised-button
+                color="accent"
+                (click)="onDelete()"        
+            >Yes</button>
+        </div>
+    </div>
+    
+</div>
